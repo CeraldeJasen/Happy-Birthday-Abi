@@ -77,7 +77,11 @@
   document.body.classList.add('intro-open');
 
   introBtn.addEventListener('click', async () => {
+    introBtn.disabled = true;
+    introBtn.textContent = 'Starting...';
+
     try{
+      bgAudio.load();
       bgAudio.volume = 0.85;
       bgAudio.loop = true;
       await bgAudio.play();
