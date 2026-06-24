@@ -70,24 +70,56 @@
   // Intro overlay behavior: play audio, show heart, then hide overlay
   const introOverlay = document.getElementById('introOverlay');
   const introBtn = document.getElementById('introBtn');
+  const uploadAudioBtn = document.getElementById('uploadAudioBtn');
+  const playMusicBtn = document.getElementById('playMusicBtn');
   const introHeart = document.getElementById('introHeart');
   const bgAudio = document.getElementById('bgAudio');
   const audioUpload = document.getElementById('audioUpload');
+  const musicHint = document.getElementById('musicHint');
+  let selectedAudioFile = null;
+
+  function updateMusicHint(text){
+    if(musicHint) musicHint.textContent = text;
+  }
 
   // mark page as intro-open so background is hidden/blurred
   document.body.classList.add('intro-open');
 
+  uploadAudioBtn.addEventListener('click', ()=> audioUpload.click());
+  playMusicBtn.addEventListener('click', async () => {
+    if(audioUpload.files && audioUpload.files[0]){
+      selectedAudioFile = audioUpload.files[0];
+      bgAudio.src = URL.createObjectURL(selectedAudioFile);
+      updateMusicHint(`Selected: ${selectedAudioFile.name}. Now press Play Music again or Start Celebration.`);
+    }
+
+    if(!bgAudio.src){
+      updateMusicHint('Please upload a song before pressing Play Music.');
+      return;
+    }
+
+    try{
+      bgAudio.volume = 0.85;
+      bgAudio.loop = true;
+      await bgAudio.play();
+      updateMusicHint('Music is playing! Press Start Celebration to continue.');
+    }catch(e){
+      console.warn('Audio play failed:', e);
+      updateMusicHint('Tap Play Music or Start Celebration again to allow sound.');
+    }
+  });
+
   introBtn.addEventListener('click', async () => {
     try{
-      // If user has selected a file, use it
       if(audioUpload.files && audioUpload.files[0]){
-        const file = audioUpload.files[0];
-        bgAudio.src = URL.createObjectURL(file);
+        selectedAudioFile = audioUpload.files[0];
+        bgAudio.src = URL.createObjectURL(selectedAudioFile);
       }
       bgAudio.volume = 0.85; bgAudio.loop = true;
       await bgAudio.play();
     }catch(e){
       console.warn('Audio play failed:', e);
+      if(!bgAudio.src) updateMusicHint('No audio loaded. Upload a song first for music.');
     }
 
     // show heart pop

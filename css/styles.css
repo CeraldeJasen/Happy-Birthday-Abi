@@ -76,7 +76,9 @@ body{
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
 
-#keyframes fadeUp{to{opacity:1;transform:none}}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+.intro-music-hint{margin-top:12px;color:rgba(255,255,255,0.78);font-size:14px;line-height:1.5}
 
 #floating-wishes{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:1}
 .wish{position:absolute;background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));padding:10px 14px;border-radius:12px;color:#fff;font-weight:600;box-shadow:0 6px 18px rgba(107,76,255,0.12);backdrop-filter:blur(6px);transform:translateY(0);opacity:0}
@@ -89,8 +91,9 @@ body{
 .intro-card-title{font-family:'Great Vibes',cursive;font-size:86px;color:var(--text);margin:0;letter-spacing:1px;text-shadow:0 18px 40px rgba(107,76,255,0.12)}
 .intro-card-name{font-family:'Playfair Display', serif;font-weight:800;font-size:42px;margin:6px 0 12px;background:linear-gradient(90deg,#fff,#ffe7f4);-webkit-background-clip:text;background-clip:text;color:transparent}
 .intro-card-sub{font-family:'Cormorant Garamond', serif;font-size:18px;color:var(--muted);margin-bottom:22px}
-.intro-actions{display:flex;justify-content:center;gap:12px}
-.intro-btn{background:linear-gradient(90deg,var(--rose),var(--violet));border:0;padding:14px 36px;border-radius:999px;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 18px 60px rgba(107,76,255,0.12);}
+.intro-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.intro-btn{background:linear-gradient(90deg,var(--rose),var(--violet));border:0;padding:14px 36px;border-radius:999px;font-size:18px;font-weight:700;cursor:pointer;box-shadow:0 18px 60px rgba(107,76,255,0.12);color:#0b0520;}
+.intro-btn-secondary{background:rgba(255,255,255,0.08);box-shadow:0 14px 40px rgba(0,0,0,0.15);color:#fff;}
 
 /* Hide/blur background while intro is open */
 body.intro-open #bgCanvas, body.intro-open #aurora, body.intro-open .center, body.intro-open .footer, body.intro-open #confettiCanvas{filter:blur(6px) brightness(.35);opacity:0.35;pointer-events:none}
@@ -108,6 +111,22 @@ body.intro-open #bgCanvas, body.intro-open #aurora, body.intro-open .center, bod
   .cake-wrap{width:100%;order:-1;margin-bottom:12px}
   .title{font-size:36px;text-align:center}
   .subtitle{font-size:16px}
-  .message{font-size:15px;max-width:full;padding:0 6px}
+  .message{font-size:15px;max-width:100%;padding:0 6px}
   .btn{width:100%;max-width:360px}
+}
+
+@media (max-width:560px){
+  .center{padding:20px 16px 100px}
+  .card{padding:20px;gap:20px}
+  .intro-card-inner{padding:28px}
+  .intro-card-title{font-size:56px}
+  .intro-card-name{font-size:32px}
+  .intro-card-sub{font-size:15px}
+  .cake{width:200px;height:180px}
+  .title{font-size:30px}
+  .subtitle{font-size:14px}
+  .message{font-size:14px;line-height:1.7}
+  .footer{font-size:13px;bottom:10px}
+  .intro-actions{gap:10px}
+  .intro-btn{flex:1;min-width:120px;padding:12px 20px;font-size:16px}
 }
